@@ -3,17 +3,59 @@
 #include <string>
 using namespace std;
 
+// Structure to store item details
+struct Item
+{
+    int itemID;
+    string itemName;
+    string category;
+    string location;
+    string date;
+    string status;
+};
+
+// Array to store records
+Item items[100];
+int itemCount = 0;
+
+// Function to report a lost item
+void reportLostItem()
+{
+    if (itemCount >= 100)
+    {
+        cout << "Record limit reached!\n";
+        return;
+    }
+
+    items[itemCount].itemID = itemCount + 1;
+
+    cout << "\nEnter Item Name: ";
+    cin.ignore();
+    getline(cin, items[itemCount].itemName);
+
+    cout << "Enter Category: ";
+    getline(cin, items[itemCount].category);
+
+    cout << "Enter Lost Location: ";
+    getline(cin, items[itemCount].location);
+
+    cout << "Enter Date: ";
+    getline(cin, items[itemCount].date);
+
+    items[itemCount].status = "Lost";
+
+    itemCount++;
+
+    cout << "\nLost Item Report Submitted Successfully!\n";
+}
+
 // Main function
 int main()
 {
-    string username;
-    string password;
+    string username, password;
 
-    cout << "====================================\n";
-    cout << " SMART CAMPUS LOST & FOUND SYSTEM\n";
-    cout << "====================================\n";
+    cout << "SMART CAMPUS LOST & FOUND SYSTEM\n";
 
-    // Student Login
     cout << "\nEnter Username: ";
     cin >> username;
 
@@ -22,8 +64,6 @@ int main()
 
     if (username == "student" && password == "1234")
     {
-        cout << "\nLogin Successful!\n";
-
         int choice;
 
         do
@@ -45,7 +85,7 @@ int main()
             switch (choice)
             {
                 case 1:
-                    cout << "Report Lost Item selected.\n";
+                    reportLostItem();
                     break;
 
                 case 2:
@@ -81,14 +121,14 @@ int main()
                     break;
 
                 default:
-                    cout << "Invalid choice! Try again.\n";
+                    cout << "Invalid choice!\n";
             }
 
         } while (choice != 9);
     }
     else
     {
-        cout << "\nInvalid Username or Password!\n";
+        cout << "Invalid Username or Password!\n";
     }
 
     return 0;
